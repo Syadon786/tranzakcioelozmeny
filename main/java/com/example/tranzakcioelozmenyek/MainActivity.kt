@@ -14,13 +14,13 @@ class MainActivity : AppCompatActivity() {
         val tabLayout = findViewById<TabLayout>(R.id.tabs)
         val viewPager2 = findViewById<ViewPager2>(R.id.view_pager)
         val fm = supportFragmentManager
-        val fragmentAdapter = FragmentAdapter(fm, lifecycle)
+        val fragmentAdapter = FragmentAdapter(applicationContext, fm, lifecycle)
 
         viewPager2.adapter = fragmentAdapter
 
-        tabLayout!!.addTab(tabLayout.newTab().setText("Szépkártya zsebek"))
-        tabLayout.addTab(tabLayout.newTab().setText("Bankkártya egyenleg"))
-        tabLayout.addTab(tabLayout.newTab().setText("Tranzakciók"))
+        tabLayout!!.addTab(tabLayout.newTab().setText(R.string.szepkartya))
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.bankkartya))
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.elozmenyek))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {

@@ -1,8 +1,13 @@
 <resources>
-    <string name="app_name">Tranzakcio elozmenyek</string>
+    <string name="app_name">Tranzakció előzmények</string>
     <string name="szepkartya">Szépkártya zsebek</string>
-    <string name="bankkartya">Bankkártya egyenleg</string>
+    <string name="bankkartya">Bankkártya és készpénz</string>
     <string name="elozmenyek">Tranzakciók</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="szallashely">Szálláshely</string>
+    <string name="egyenlegZero">Egyenleg: 0 Ft</string>
+    <string name="hozzaad">Hozzáad</string>
+    <string name="levon">Levon</string>
+    <string name="szabadido">Szabadidő</string>
+    <string name="vendeglatas">Vendéglátás</string>
+
 </resources>
