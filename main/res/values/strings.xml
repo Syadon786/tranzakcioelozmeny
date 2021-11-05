@@ -14,6 +14,7 @@
     <string name="btn_ok">OK</string>
     <string name="btn_vissza">Vissza</string>
     <string name="hint01">Adja meg az összeget</string>
+    <string name="hint02">Megjegyzés - Opcionális</string>
     <string name="ft">Ft</string>
 
 </resources>
