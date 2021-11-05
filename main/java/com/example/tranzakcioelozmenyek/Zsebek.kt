@@ -2,16 +2,22 @@ package com.example.tranzakcioelozmenyek
 
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-
+import androidx.constraintlayout.widget.ConstraintLayout
 
 class Zsebek(context: Context) : Fragment(R.layout.fragment_zsebek) {
 
-    val appContext = context
+    private val appContext :Context = context
+    private var isWithdrawing : Boolean = false
+    private var actID :Byte = -1
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         
@@ -26,34 +32,71 @@ class Zsebek(context: Context) : Fragment(R.layout.fragment_zsebek) {
         val szbAddBtn = getView()?.findViewById<Button>(R.id.addBtnSzabad)
         val szbRmBtn = getView()?.findViewById<Button>(R.id.rmBtnSzabad)
         val szabadidoBalance = getView()?.findViewById<TextView>(R.id.szabadidoegyenleg)
-        
+
+        val tr_window = getView()?.findViewById<ConstraintLayout>(R.id.tr_Window)
+        val trEt = tr_window?.findViewById<EditText>(R.id.trEt)
+        val tr_btnOk = tr_window?.findViewById<Button>(R.id.btn_Ok)
+        val tr_btnVissza = tr_window?.findViewById<Button>(R.id.btn_Vissza)
+
         szAddBtn?.setOnClickListener {
-            changeBalance(szallasBalance, false)
+            setProperties(false, TranzactionManager.SZALLAS_ID)
+            if (tr_window != null) {
+                tr_window.visibility = View.VISIBLE
+            }
         }
         szRmBtn?.setOnClickListener {
-            changeBalance(szallasBalance, true)
+            setProperties(true, TranzactionManager.SZALLAS_ID)
+            if (tr_window != null) {
+                tr_window.visibility = View.VISIBLE
+            }
         }
 
         vAddBtn?.setOnClickListener {
-            changeBalance(vendegBalance, false)
+            setProperties(false, TranzactionManager.VENDEGLATAS_ID)
+            if (tr_window != null) {
+                tr_window.visibility = View.VISIBLE
+            }
         }
         vRmBtn?.setOnClickListener {
-            changeBalance(vendegBalance, true)
+            setProperties(true, TranzactionManager.VENDEGLATAS_ID)
+            if (tr_window != null) {
+                tr_window.visibility = View.VISIBLE
+            }
         }
 
         szbAddBtn?.setOnClickListener {
-            changeBalance(szabadidoBalance, false)
+            setProperties(false, TranzactionManager.SZABADIDO_ID)
+            if (tr_window != null) {
+                tr_window.visibility = View.VISIBLE
+            }
         }
         szbRmBtn?.setOnClickListener {
-            changeBalance(szabadidoBalance, true)
+            setProperties(true, TranzactionManager.SZABADIDO_ID)
+            if (tr_window != null) {
+                tr_window.visibility = View.VISIBLE
+            }
+        }
+
+
+        tr_btnVissza?.setOnClickListener {
+            trEt?.text?.clear()
+            tr_window?.visibility = View.INVISIBLE
+        }
+
+        tr_btnOk?.setOnClickListener {
+            if(trEt?.text.toString() == "")
+            {
+                Toast.makeText(appContext, "Nem adott meg összeget", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
-    private fun changeBalance(balanceText : TextView?, isWithdrawing : Boolean)
+    private fun setProperties(isW : Boolean, id: Byte)
     {
-        Toast.makeText(appContext, "Működik", Toast.LENGTH_SHORT).show()
-    }
+        this.isWithdrawing = isW
+        this.actID = id
 
+    }
 }
 
 

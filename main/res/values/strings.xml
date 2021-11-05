@@ -9,5 +9,11 @@
     <string name="levon">Levon</string>
     <string name="szabadido">Szabadidő</string>
     <string name="vendeglatas">Vendéglátás</string>
+    <string name="trw_with">Elköltött összeg megadása</string>
+    <string name="trw_dep">Összeg hozzáadása</string>
+    <string name="btn_ok">OK</string>
+    <string name="btn_vissza">Vissza</string>
+    <string name="hint01">Adja meg az összeget</string>
+    <string name="ft">Ft</string>
 
 </resources>

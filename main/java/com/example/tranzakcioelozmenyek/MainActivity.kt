@@ -1,6 +1,8 @@
 package com.example.tranzakcioelozmenyek
 
 import android.os.Bundle
+import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.tabs.TabLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
