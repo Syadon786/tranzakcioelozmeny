@@ -15,6 +15,12 @@ class TranzakciokFragment(context : Context) : Fragment(R.layout.fragment_tranza
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = getView()?.findViewById<RecyclerView>(R.id.tranzactionsView)
-        recyclerView?.adapter = TranzactionAdapter(appContext, TranzactionManager.loadTransactions())
+        recyclerView?.adapter = TranzactionAdapter(appContext, TranzactionManager.loadTransactions(appContext))
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val recyclerView = getView()?.findViewById<RecyclerView>(R.id.tranzactionsView)
+        recyclerView?.adapter = TranzactionAdapter(appContext, TranzactionManager.loadTransactions(appContext))
     }
 }

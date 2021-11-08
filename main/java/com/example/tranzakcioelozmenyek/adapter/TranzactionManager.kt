@@ -1,12 +1,16 @@
 package com.example.tranzakcioelozmenyek.adapter
 
 import android.content.Context
+import android.content.Context.MODE_APPEND
+import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.os.Build
+import android.util.Log
 import android.widget.TextView
 import android.widget.Toast
 import com.example.tranzakcioelozmenyek.model.Tranzaction
 import java.io.File
+import java.io.IOException
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
@@ -17,7 +21,7 @@ class TranzactionManager {
         const val SZALLAS_ID : Int = 0
         const val VENDEGLATAS_ID : Int = 1
         const val SZABADIDO_ID : Int = 2
-        private const val tranzactionHistory : String = "/res/tranzactions.txt"
+        private const val tranzactionHistory : String = "tranzactions.txt"
 
         private var balances = mutableListOf(0u, 0u, 0u, 0u, 0u)
 
@@ -51,7 +55,7 @@ class TranzactionManager {
             }
 
             saveBalance(editor, balances[actID], actID)
-            saveTransaction(am, comment, isWithdrawing)
+            saveTransaction(appContext, am, comment, isWithdrawing)
 
             Toast.makeText(appContext, "Sikeres tranzakció", Toast.LENGTH_SHORT).show()
             return true
@@ -64,7 +68,7 @@ class TranzactionManager {
         }
 
 
-        fun saveTransaction(amount : String ,comment : String, isWithdrawing: Boolean)
+        fun saveTransaction(context: Context, amount : String ,comment : String, isWithdrawing: Boolean)
         {
 
             val currentDateTime : String =  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
@@ -72,8 +76,8 @@ class TranzactionManager {
             } else {
                 "Hiba"
             }
-            val text = "$currentDateTime\t$comment\t$amount\t$isWithdrawing"
-            val fileObject = File(tranzactionHistory)
+            val text = "$currentDateTime\t$comment\t$amount Ft\t$isWithdrawing\n"
+            val fileObject = File(context.filesDir, tranzactionHistory)
             if(fileObject.exists())
             {
                 fileObject.appendText(text)
@@ -85,14 +89,15 @@ class TranzactionManager {
             }
         }
 
-        fun loadTransactions() : List<Tranzaction>
+        fun loadTransactions(context: Context) : List<Tranzaction>
         {
+
             val trHistory = mutableListOf<Tranzaction>()
-            val fileObject = File(tranzactionHistory)
+            val fileObject = File(context.filesDir, tranzactionHistory)
             if(fileObject.exists()) {
-               val bufferedReader = fileObject.bufferedReader()
-               val lines : List<String> = bufferedReader.readLines()
-                for (line in lines)
+                val bufferedReader = fileObject.bufferedReader()
+                val lines : List<String> = bufferedReader.readLines()
+                for (line in lines.reversed())
                 {
                     val act = line.split("\t")
                     trHistory.add(Tranzaction((act[0]+ " " + act[1] + " " + act[2]), act[3].toBoolean()))

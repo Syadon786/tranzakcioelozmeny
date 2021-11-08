@@ -96,6 +96,7 @@ class ZsebekFragment(context: Context) : Fragment(R.layout.fragment_zsebek) {
 
         tr_btnVissza?.setOnClickListener {
             trEt?.text?.clear()
+            trMegjegyzes?.text?.clear()
             tr_window?.visibility = View.INVISIBLE
             closeKeyBoard()
         }
@@ -103,6 +104,7 @@ class ZsebekFragment(context: Context) : Fragment(R.layout.fragment_zsebek) {
                 if(TranzactionManager.changeBalance(appContext, trEt?.text.toString(), trMegjegyzes?.text.toString(), isWithdrawing, actID, editor))
                 {
                     trEt?.text?.clear()
+                    trMegjegyzes?.text?.clear()
                     val txt = "Egyenleg: ${TranzactionManager.getBalance(actID)} Ft"
                     txtBalances[actID]?.text = txt
                     tr_window?.visibility = View.INVISIBLE
