@@ -21,7 +21,7 @@ class FragmentAdapter(context: Context ,fragmentManager: FragmentManager, lifecy
     override fun createFragment(position: Int): Fragment {
         if(position == 1)
         {
-            return BankkartyaFragment()
+            return BankkartyaFragment(appContext)
         }
         else if(position == 2)
         {

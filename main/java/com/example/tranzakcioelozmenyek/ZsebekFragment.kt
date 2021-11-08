@@ -44,7 +44,7 @@ class ZsebekFragment(context: Context) : Fragment(R.layout.fragment_zsebek) {
         val trMegjegyzes = trWindow?.findViewById<EditText>(R.id.trMegjegyzes)
         val trWindowTxt = trWindow?.findViewById<TextView>(R.id.tr_windowText)
         val trbtnOk = trWindow?.findViewById<Button>(R.id.btn_Ok)
-        val trbtnVissza = trWindow?.findViewById<Button>(R.id.btn_Vissza)
+        val trbtnVissza = trWindow?.findViewById<Button>(R.id.crBtnVissza)
 
         setListeners(szAddBtn, szRmBtn, vAddBtn, vRmBtn, szbAddBtn, szbRmBtn, trWindow, trbtnOk, trbtnVissza, trEt, trMegjegyzes, trWindowTxt, editor)
 

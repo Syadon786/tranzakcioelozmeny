@@ -1,6 +1,8 @@
 package com.example.tranzakcioelozmenyek
 
+import android.content.Context
 import android.os.Bundle
+import android.view.inputmethod.InputMethodManager
 import com.google.android.material.tabs.TabLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
@@ -19,9 +21,9 @@ class MainActivity : AppCompatActivity() {
 
         viewPager2.adapter = fragmentAdapter
 
-        tabLayout!!.addTab(tabLayout.newTab().setText(R.string.szepkartya))
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.bankkartya))
-        tabLayout.addTab(tabLayout.newTab().setText(R.string.elozmenyek))
+        tabLayout!!.addTab(tabLayout.newTab().setText(R.string.szepkartyafelirat))
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.bankkartyafelirat))
+        tabLayout.addTab(tabLayout.newTab().setText(R.string.elozmenyekfelirat))
         tabLayout.tabGravity = TabLayout.GRAVITY_FILL
 
         tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {

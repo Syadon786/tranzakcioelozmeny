@@ -1,14 +1,16 @@
 <resources>
     <string name="app_name">Tranzakció előzmények</string>
-    <string name="szepkartya">Szépkártya zsebek</string>
-    <string name="bankkartya">Bankkártya és készpénz</string>
-    <string name="elozmenyek">Tranzakciók</string>
+    <string name="szepkartyafelirat">Szépkártya zsebek</string>
+    <string name="bankkartyafelirat">Bankkártya és készpénz</string>
+    <string name="elozmenyekfelirat">Tranzakciók</string>
     <string name="szallashely">Szálláshely</string>
+    <string name="szabadido">Szabadidő</string>
+    <string name="vendeglatas">Vendéglátás</string>
+    <string name="bankkartya">Bankkártya</string>
+    <string name="keszpenz">Készpénz</string>
     <string name="egyenlegZero">Egyenleg: 0 Ft</string>
     <string name="hozzaad">Hozzáad</string>
     <string name="levon">Levon</string>
-    <string name="szabadido">Szabadidő</string>
-    <string name="vendeglatas">Vendéglátás</string>
     <string name="trw_with">Elköltött összeg megadása</string>
     <string name="trw_dep">Összeg hozzáadása</string>
     <string name="btn_ok">OK</string>
@@ -16,4 +18,6 @@
     <string name="hint01">Adja meg az összeget</string>
     <string name="hint02">Megjegyzés - Opcionális</string>
     <string name="ft">Ft</string>
+    <string name="elozmenytorles">Előzmények törlése</string>
+    <string name="torlie">Törli az előzményeket?</string>
 </resources>
