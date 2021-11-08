@@ -8,15 +8,12 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import android.content.SharedPreferences
+import com.example.tranzakcioelozmenyek.adapter.TranzactionManager
 
 
-
-
-
-class Zsebek(context: Context) : Fragment(R.layout.fragment_zsebek) {
+class ZsebekFragment(context: Context) : Fragment(R.layout.fragment_zsebek) {
 
     private val appContext :Context = context
     private var isWithdrawing : Boolean = false
@@ -44,11 +41,12 @@ class Zsebek(context: Context) : Fragment(R.layout.fragment_zsebek) {
 
         val trWindow = getView()?.findViewById<ConstraintLayout>(R.id.tr_Window)
         val trEt = trWindow?.findViewById<EditText>(R.id.trEt)
+        val trMegjegyzes = trWindow?.findViewById<EditText>(R.id.trMegjegyzes)
         val trWindowTxt = trWindow?.findViewById<TextView>(R.id.tr_windowText)
         val trbtnOk = trWindow?.findViewById<Button>(R.id.btn_Ok)
         val trbtnVissza = trWindow?.findViewById<Button>(R.id.btn_Vissza)
 
-        setListeners(szAddBtn, szRmBtn, vAddBtn, vRmBtn, szbAddBtn, szbRmBtn, trWindow, trbtnOk, trbtnVissza, trEt, trWindowTxt, editor)
+        setListeners(szAddBtn, szRmBtn, vAddBtn, vRmBtn, szbAddBtn, szbRmBtn, trWindow, trbtnOk, trbtnVissza, trEt, trMegjegyzes, trWindowTxt, editor)
 
         init(sharedPreferences, txtBalances[0], txtBalances[1], txtBalances[2])
 
@@ -56,9 +54,9 @@ class Zsebek(context: Context) : Fragment(R.layout.fragment_zsebek) {
 
     private fun init(sharedPreferences: SharedPreferences, szB: TextView?, vB: TextView?, szbB: TextView?)
     {
-        TranzactionManager.loadBalance(sharedPreferences, TranzactionManager.SZALLAS_ID, szB)
-        TranzactionManager.loadBalance(sharedPreferences, TranzactionManager.VENDEGLATAS_ID, vB)
-        TranzactionManager.loadBalance(sharedPreferences, TranzactionManager.SZABADIDO_ID, szbB)
+        TranzactionManager.loadBalances(sharedPreferences, TranzactionManager.SZALLAS_ID, szB)
+        TranzactionManager.loadBalances(sharedPreferences, TranzactionManager.VENDEGLATAS_ID, vB)
+        TranzactionManager.loadBalances(sharedPreferences, TranzactionManager.SZABADIDO_ID, szbB)
     }
 
     private fun setProperties(isW : Boolean, id: Int, tr_window: ConstraintLayout?, trwTxt: TextView?)
@@ -70,7 +68,7 @@ class Zsebek(context: Context) : Fragment(R.layout.fragment_zsebek) {
     }
 
     private fun setListeners(szAddBtn : Button? , szRmBtn : Button?, vAddBtn : Button?, vRmBtn : Button?, szbAddBtn: Button?, szbRmBtn : Button?
-    , tr_window : ConstraintLayout?, tr_btnOk: Button?, tr_btnVissza : Button?, trEt : EditText?
+    , tr_window : ConstraintLayout?, tr_btnOk: Button?, tr_btnVissza : Button?, trEt : EditText?, trMegjegyzes: EditText?
     , trwTxt : TextView?, editor : SharedPreferences.Editor
     )
     {
@@ -102,27 +100,14 @@ class Zsebek(context: Context) : Fragment(R.layout.fragment_zsebek) {
             closeKeyBoard()
         }
         tr_btnOk?.setOnClickListener {
-            val trValue = trEt?.text.toString()
-            if(trValue == "")
-            {
-                Toast.makeText(appContext, "Nem adott meg összeget", Toast.LENGTH_SHORT).show()
-            }
-            else {
-
-                if((trValue.toUInt() > TranzactionManager.getBalance(actID)) && isWithdrawing)
+                if(TranzactionManager.changeBalance(appContext, trEt?.text.toString(), trMegjegyzes?.text.toString(), isWithdrawing, actID, editor))
                 {
-                    Toast.makeText(appContext, "Ennyi pénz nem áll rendelkezésre", Toast.LENGTH_SHORT).show()
-                }
-                else
-                {
-                    TranzactionManager.changeBalance(appContext, trValue.toUInt(), isWithdrawing, actID, editor)
                     trEt?.text?.clear()
                     val txt = "Egyenleg: ${TranzactionManager.getBalance(actID)} Ft"
                     txtBalances[actID]?.text = txt
                     tr_window?.visibility = View.INVISIBLE
+                    closeKeyBoard()
                 }
-            }
-            closeKeyBoard()
         }
     }
 

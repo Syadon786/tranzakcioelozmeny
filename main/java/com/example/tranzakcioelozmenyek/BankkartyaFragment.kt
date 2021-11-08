@@ -8,6 +8,6 @@ import android.view.ViewGroup
 import com.example.tranzakcioelozmenyek.R
 
 
-class Bankkartya : Fragment(R.layout.fragment_bankkartya) {
+class BankkartyaFragment : Fragment(R.layout.fragment_bankkartya) {
 
 }
